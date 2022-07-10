@@ -7,32 +7,154 @@ namespace Strings
     {
         public static void Main(string[] args)
         {
-            string strPath = @"d:\sample.txt";
+            string strTextPath = @"d:\sample.txt";
 
-            if (File.Exists(strPath) == true) //Если файл существует.
+            if (File.Exists(strTextPath) == true) //Если файл существует.
             {
-                string strText =  File.ReadAllText(strPath); //Читаем данные из файла в переменную.
+                string strText =  File.ReadAllText(strTextPath); //Читаем данные из файла в переменную.
 
-                string strPattern = @"((\.\.\.)|[0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s]])((т.п.|т.д.|[0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.]])*(\.\.\.\""|\.\""|\!\""|\?\""|\.\.\.\'|\.\'|\!\'|\?\'|\.\.\.|[\.\!\?])";
+                strText = strText.Replace("\n", " "); //Удаляем все ентеры (в тексте вогон не нужных/случайных).
 
-                MatchCollection strMatchCollection = Regex.Matches(strText, strPattern, RegexOptions.Multiline);
 
-                for (int i = 0; i <= 300; i++)
+
+
+
+                string strPattern;
+                MatchCollection strMatchCollection;
+
+                strPattern = @"((\.\.\.)|[0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s]])((Sr.|Jr.|Mrs.|Mr.|Dr.|.exe|[0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.]])*(\.\.\.\""|\.\""|\!\""|\?\""|\.\.\.\'|\.\'|\!\'|\?\'|\.\.\.|[\.\!\?])";
+                strMatchCollection = Regex.Matches(strText, strPattern); //Создаем коллекцию предложений.
+
+                List<claSentence> strSentenceList = new List<claSentence>(); //Лист предложений.
+
+                if (strMatchCollection.Count > 0)
                 {
-                    Console.WriteLine(strMatchCollection[i].Value);
-
-
-                    
-                    
-                    
-                    //Console.WriteLine("{0} => {1}", mc[i].Groups[0].Value.Length, mc[i].Groups[0].Value);
+                    for (int int1 = 0; int1 <= strMatchCollection.Count - 1; int1++)
+                    {
+                        strSentenceList.Add(new claSentence(strMatchCollection[int1].Value)); //Создаем лист предложений.
+                    }
                 }
-                //Console.ReadKey();
+                
+
+                if (strSentenceList.Count > 0)
+                {
+                    for (int int1 = 0; int1 <= strSentenceList.Count - 1; int1++)
+                    {
+                        strPattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])";
+                        strMatchCollection = Regex.Matches(strSentenceList[int1].strSentence, strPattern); //Создаем коллекцию слов.
+
+                        if (strMatchCollection.Count > 0)
+                        {
+                            for (int int2 = 0; int2 <= strMatchCollection.Count - 1; int2++)
+                            {
+                                strSentenceList[int2].strWordList.Add(strMatchCollection[int2].Value); //Создаем лист слов (на каждое предложение).
+                            }
+                        }
+
+                        strPattern = @"(\.\.\.)|[\?\!\.\""\'\,\:\;]";
+                        strMatchCollection = Regex.Matches(strSentenceList[int1].strSentence, strPattern); //Создаем коллекцию знаков препинания (на каждое предложение).
+
+                        if (strMatchCollection.Count > 0)
+                        {
+                            for (int int2 = 0; int2 <= strMatchCollection.Count - 1; int2++)
+                            {
+                                strSentenceList[int2].strPunctuationMarkList.Add(strMatchCollection[int2].Value); //Создаем лист знаков препинания.
+                            }
+                        }
+
+
+                    }
+                }
+
+
+
+
+
+
+
+
+                /*
+                string strSentencePath = @"d:\Sentence.txt";
+
+                if(strSentenceCollection.Count>0)
+                {
+                    for (int int1=0; int1<=strSentenceCollection.Count-1; int1++)
+                    {
+                        if(int1==0)
+                        {
+                            File.WriteAllText(strSentencePath, strSentenceCollection[int1].Value);
+                        }
+                        else
+                        {
+                            File.AppendAllText(strSentencePath, "\n" + strSentenceCollection[int1].Value);
+                        }
+                    }
+                }
+                */
+
+
+
+
+
+
+
+
+                //
+
+
+                //AppendAllLines;
+
+                /*
+                Process.Start(strPath);
+
+                File.Open(strPath, FileMode.Open);
+                */
+
+
+                //File.Delete(strSentencePath);
+
+
+
+                //var varSorting = strSentenceCollection.OrderBy(x => x.Value).ToList();
+
+
+
+
+
+
+                /*
+                string x = strText;
+
+                for (int i = 0; i <= strSentenceCollection.Count-1; i++)
+                {
+                    //Console.WriteLine(strSentenceCollection[i].Value);
+                    
+                    
+                    x = x.Remove(x.IndexOf(strSentenceCollection[i].Value), strSentenceCollection[i].Value.Length);
+
+
+                    //x = x.Replace(strMatchCollection[i].Value, "");
+
+                }
+
+                Console.WriteLine(x);
+                */
+
+
             }
             else
             {
                 Console.WriteLine("Запрашиваемый файл отсутствует.");
             }
         }
+        
+        
+
+
+        
+        
+
+
+
     }
 }
