@@ -9,12 +9,15 @@ namespace Strings
     internal class claSentence
     {
         public string strSentence; //Предложение.
-        public List<string> strWordList = new List<string>(); //Коллекция слов.
-        public List<string> strPunctuationMarkList = new List<string>(); //Коллекция символов.
+        public int intSentenceCount = 0; //Количество таких предложений в тексте.
+        public int intSentenceWordCount = 0; //Количество слов в предложениии.
+        public int intSentenceLetterCount = 0; //Количество букв в предложениии.
+        public int intSentencePunctuationMarkCount = 0; //Количество знаков препинания в предложениии.
+        public int intSentenceCharactersCount = 0; //Количество символов в предложениии.
 
-        public claSentence(string strName)
+        public claSentence(string strSentence)
         {
-            this.strSentence = strName;
+            this.strSentence = strSentence; //Предложение.
         }
     }
 }

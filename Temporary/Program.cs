@@ -9,8 +9,8 @@ namespace Strings
         {
             string x = "...fghfh jgj, bjkhkh%66) hhhj?";
 
-            //string strPattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])";
-            string strPattern = @"(\.\.\.)|[\?\!\.\""\'\,\:\;]";
+            //string strPattern = @"[\w]";
+            string strPattern = @"[\w-[\d]]";
             MatchCollection strMatchCollection = Regex.Matches(x, strPattern); //Создаем коллекцию предложений.
 
 
@@ -29,5 +29,120 @@ namespace Strings
 
 
         }
+
+        /*
+        //Парсинг текста на слова.
+        strPattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])";
+        strMatchCollection = Regex.Matches(strText, strPattern); //Создаем коллекцию слов.
+
+        if (strMatchCollection.Count > 0)
+        {
+            for (int int1 = 0; int1 <= strMatchCollection.Count - 1; int1++)
+            {
+                listWord.Add(new claWord(strMatchCollection[int1].Value)); //Заполняем лист слов.
+            }
+        }
+        Console.WriteLine("Слова");
+
+
+        //Парсинг текста на буквы.
+        strPattern = @"[\w-[\d]]";
+        strMatchCollection = Regex.Matches(strText, strPattern); //Создаем коллекцию букв.
+
+        if (strMatchCollection.Count > 0)
+        {
+            for (int int1 = 0; int1 <= strMatchCollection.Count - 1; int1++)
+            {
+                listLetter.Add(new claLetter(strMatchCollection[int1].Value)); //Заполняем лист букв.
+            }
+        }
+        Console.WriteLine("Буквы");
+
+
+        //Парсинг текста на знаки препинания.
+        strPattern = @"(\.\.\.)|[\?\!\.\""\'\,\:\;]";
+        strMatchCollection = Regex.Matches(strText, strPattern); //Создаем коллекцию знаков препинания.
+
+        if (strMatchCollection.Count > 0)
+        {
+            for (int int1 = 0; int1 <= strMatchCollection.Count - 1; int1++)
+            {
+                listPunctuationMark.Add(new claPunctuationMark(strMatchCollection[int1].Value)); //Заполняем лист знаков препинания.
+            }
+        }
+        Console.WriteLine("Знаки");
+        */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
+        string strSentencePath = @"d:\Sentence.txt";
+
+        if(strSentenceCollection.Count>0)
+        {
+            for (int int1=0; int1<=strSentenceCollection.Count-1; int1++)
+            {
+                if(int1==0)
+                {
+                    File.WriteAllText(strSentencePath, strSentenceCollection[int1].Value);
+                }
+                else
+                {
+                    File.AppendAllText(strSentencePath, "\n" + strSentenceCollection[int1].Value);
+                }
+            }
+        }
+        */
+
+
+
+
+
+
+
+
+
+
+        //File.Delete(strSentencePath);
+
+
+
+        //var varSorting = strSentenceCollection.OrderBy(x => x.Value).ToList();
+
+
+
+
+
+
+        /*
+        string x = strText;
+
+        for (int i = 0; i <= strSentenceCollection.Count-1; i++)
+        {
+            //Console.WriteLine(strSentenceCollection[i].Value);
+
+
+            x = x.Remove(x.IndexOf(strSentenceCollection[i].Value), strSentenceCollection[i].Value.Length);
+
+
+            //x = x.Replace(strMatchCollection[i].Value, "");
+
+        }
+
+        Console.WriteLine(x);
+        */
+
+
     }
 }
