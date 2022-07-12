@@ -9,13 +9,10 @@ namespace Strings
     {
         public static void Main(string[] args)
         {
-            List<string> listSentence = new List<string>() { };
-
-            var listSentence = strMatchCollection.ToList(); //Копируем коллекцию предложений в лист предложений (для универсальности).
-            Console.WriteLine("Распарсили на предложения");
+            var listSentence = new List<string>() {"ghj jk","s", "ghj jk", "s","b"};
 
             //Сортируем предложения.
-            var listSentenceSort = listSentence.OrderBy(x => x.Value).ToList();
+            var listSentenceSort = listSentence.OrderBy(x => x).ToList();
 
             //Убираем дубликаты предложения.
             var listSentenceNoDuplicates = listSentenceSort.Distinct().ToList();
@@ -27,7 +24,7 @@ namespace Strings
 
             for (int int1 = 0; int1 <= listSentenceNoDuplicates.Count - 1; int1++)
             {
-                listSentenceCountInText.Add(listSentenceSort.Count(x => x.Value == listSentenceNoDuplicates[int1].Value));
+                listSentenceCountInText.Add(listSentenceSort.Count(x => x == listSentenceNoDuplicates[int1]));
             }
 
 
