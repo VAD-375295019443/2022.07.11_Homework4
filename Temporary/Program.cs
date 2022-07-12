@@ -9,11 +9,34 @@ namespace Strings
     {
         public static void Main(string[] args)
         {
+            List<string> listSentence = new List<string>() { };
+
+            var listSentence = strMatchCollection.ToList(); //Копируем коллекцию предложений в лист предложений (для универсальности).
+            Console.WriteLine("Распарсили на предложения");
+
+            //Сортируем предложения.
+            var listSentenceSort = listSentence.OrderBy(x => x.Value).ToList();
+
+            //Убираем дубликаты предложения.
+            var listSentenceNoDuplicates = listSentenceSort.Distinct().ToList();
+
+            //Количество каждого предложения в тесте.
+            List<int> listSentenceCountInText = new List<int>(listSentenceNoDuplicates.Count);
+            Console.WriteLine($"Предложений {listSentenceSort.Count}");
+            Console.WriteLine($"Предложений {listSentenceNoDuplicates.Count}");
+
+            for (int int1 = 0; int1 <= listSentenceNoDuplicates.Count - 1; int1++)
+            {
+                listSentenceCountInText.Add(listSentenceSort.Count(x => x.Value == listSentenceNoDuplicates[int1].Value));
+            }
 
 
 
 
 
+
+
+            /*
             
             //string[] sArr1 = { "First ", "Second ", "Third " };
 

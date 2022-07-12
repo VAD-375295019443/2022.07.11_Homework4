@@ -12,22 +12,12 @@ namespace Strings
 
             if (File.Exists(strTextPath) == true) //Если файл существует.
             {
-                /*
-                List<claSentence> listSentence = new List<claSentence>(); //Лист предложений.
-                List<claWord> listWord = new List<claWord>(); //Лист слов.
-                List<claLetter> listLetter = new List<claLetter>(); //Лист букв.
-                List<claPunctuationMark> listPunctuationMark = new List<claPunctuationMark>(); //Лист знаков препинания.
-                */
-
-
-
-                //-----------------------------------------------------------------------------------
                 string strPattern;
                 MatchCollection strMatchCollection;
-                
-                
-                
-                string strText =  File.ReadAllText(strTextPath); //Читаем данные из файла в переменную.
+
+
+
+                string strText = File.ReadAllText(strTextPath); //Читаем данные из файла в переменную.
                 Console.WriteLine("Прочитали из файла");
 
 
@@ -36,7 +26,9 @@ namespace Strings
                 Console.WriteLine("Удалили энтеры");
 
 
+                
 
+                //-------------------------------------------------------------
                 //Парсинг текста на предложения.
                 strPattern = @"((\.\.\.)|[0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s]])((Sr.|Jr.|Mrs.|Mr.|Dr.|.exe|[0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.]])*(\.\.\.\""|\.\""|\!\""|\?\""|\.\.\.\'|\.\'|\!\'|\?\'|\.\.\.|[\.\!\?])"; //Regex предложений.
                 strMatchCollection = Regex.Matches(strText, strPattern); //Создаем коллекцию предложений.
@@ -44,19 +36,63 @@ namespace Strings
                 var listSentence = strMatchCollection.ToList(); //Копируем коллекцию предложений в лист предложений (для универсальности).
                 Console.WriteLine("Распарсили на предложения");
 
+                //Сортируем предложения.
+                var listSentenceSort = listSentence.OrderBy(x => x.Value).ToList();
+
+                //Убираем дубликаты предложения.
+                var listSentenceNoDuplicates = listSentenceSort.Distinct().ToList();
+
+                //Количество каждого предложения в тесте.
+                List<int> listSentenceCountInText = new List<int>(listSentenceNoDuplicates.Count);
+                Console.WriteLine($"Предложений {listSentenceSort.Count}");
+                Console.WriteLine($"Предложений {listSentenceNoDuplicates.Count}");
+
+                for (int int1=0; int1<=listSentenceNoDuplicates.Count-1; int1++)
+                {
+                    listSentenceCountInText.Add(listSentenceSort.Count(x => x.Value == listSentenceNoDuplicates[int1].Value));
+                }
+
+                //-------------------------------------------------------------
+
+
+
 
 
                 strText = string.Join(" ", listSentence); //После парсинга возвращаем все предложения в strText (чистый текст без остатков после парсинга).
                 Console.WriteLine("Обратно в файл");
+                //-------------------------------------------------------------
 
 
 
+
+
+
+
+
+
+
+                //-------------------------------------------------------------
+
+
+
+
+
+
+
+                //-------------------------------------------------------------
                 //Парсинг текста на слова.
                 strPattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])"; //Regex слов.
                 strMatchCollection = Regex.Matches(strText, strPattern); //Создаем коллекцию слов.
 
                 var listWord = strMatchCollection.ToList(); //Копируем коллекцию слов в лист слов (для универсальности).
                 Console.WriteLine("Распарсили на слова");
+                //-------------------------------------------------------------
+
+                //Сортируем слова.
+                var listWordSort = listWord.OrderBy(x => x.Value);
+
+
+
 
 
                 //Парсинг текста на буквы.
@@ -65,6 +101,12 @@ namespace Strings
 
                 var listLetter = strMatchCollection.ToList(); //Копируем коллекцию букв в лист букв (для универсальности).
                 Console.WriteLine("Распарсили на буквы");
+                //-------------------------------------------------------------
+
+                //Сортируем буквы.
+                var listLetterSort = listLetter.OrderBy(x => x.Value).ToString;
+
+
 
 
 
@@ -74,6 +116,12 @@ namespace Strings
 
                 var listPunctuationMark = strMatchCollection.ToList(); //Копируем коллекцию знаков препинания в лист знаков препинания (для универсальности).
                 Console.WriteLine("Распарсили на знаки препинания");
+                //-------------------------------------------------------------
+
+                //Сортируем знаки препинания.
+                var listPunctuationMarkSort = listPunctuationMark.OrderBy(x => x.Value).ToString;
+
+
 
 
 
@@ -131,7 +179,7 @@ namespace Strings
 
 
 
-                List<int> ages = new List<int> {21,46,46,55,17,21,55,55};
+                List<int> ages = new List<int> { 21, 46, 46, 55, 17, 21, 55, 55 };
 
 
 
@@ -142,7 +190,7 @@ namespace Strings
                 var distinctAges = ages.Distinct().ToList();
 
                 Console.WriteLine($"gggggggg {distinctAges.Count}");
-                
+
                 int z = 55;
                 int numberUnvaccinated = ages.Count(x => x == z);
 
@@ -159,6 +207,20 @@ namespace Strings
                 */
 
 
+
+
+
+
+                /*
+                List<claSentence> listSentence = new List<claSentence>(); //Лист предложений.
+                List<claWord> listWord = new List<claWord>(); //Лист слов.
+                List<claLetter> listLetter = new List<claLetter>(); //Лист букв.
+                List<claPunctuationMark> listPunctuationMark = new List<claPunctuationMark>(); //Лист знаков препинания.
+                */
+
+
+
+                //-----------------------------------------------------------------------------------
 
 
                 /*
@@ -179,7 +241,7 @@ namespace Strings
                 }
                 Console.WriteLine($"Слова {listWord.Count}");
                 */
-                
+
 
                 /*
                 for (int int1 = 0; int1 <= strMatchCollection.Count - 1; int1++)
@@ -329,15 +391,14 @@ namespace Strings
 
 
 
-
-
-
             }
             else
             {
                 Console.WriteLine("Запрашиваемый файл отсутствует.");
             }
         }
+
+
 
 
 
