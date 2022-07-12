@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
+using System.ComponentModel;
 
 namespace Strings
 {
@@ -7,24 +9,44 @@ namespace Strings
     {
         public static void Main(string[] args)
         {
-            string x = "...fghfh jgj, bjkhkh%66) hhhj?";
 
-            //string strPattern = @"[\w]";
-            string strPattern = @"[\w-[\d]]";
-            MatchCollection strMatchCollection = Regex.Matches(x, strPattern); //Создаем коллекцию предложений.
+
+
+
+
+            
+            //string[] sArr1 = { "First ", "Second ", "Third " };
+
+            List<int> ages = new List<int> { 21, 46, 46, 55, 17, 21, 55, 55 };
+            Console.WriteLine(string.Join(" ", ages));
+
 
 
             /*
-            var z = x.Split(" ");
+            List<int> ages = new List<int> { 21, 46, 46, 55, 17, 21, 55, 55 };
+
+
+            var distinctAges = ages.Distinct().ToList();
+
+            Console.WriteLine($"gggggggg {distinctAges.Count}");
+
+            int z = 55;
+            int numberUnvaccinated = ages.Count(x => x == z);
+
+            Console.WriteLine($"ssssssssss {numberUnvaccinated}");
             */
 
 
 
-            for(int i = 0; i < strMatchCollection.Count; i++)
-            {
-                Console.WriteLine(strMatchCollection[i]);
-            }
-            
+
+
+
+
+
+
+
+
+
 
 
 
