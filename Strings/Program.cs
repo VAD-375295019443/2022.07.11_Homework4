@@ -112,24 +112,6 @@ namespace Strings
 
 
 
-                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //Количество каждого предложения в тесте.
-                List<string> m = new List<string>(listSentenceSort);
-
-                List<int> listSentenceCountInText = new List<int>(listSentenceNoDuplicates.Count);
-                
-                int z;
-                for (int int1 = 0; int1 <= listSentenceNoDuplicates.Count - 1; int1++)
-                {
-                    listSentenceCountInText.Add(m.Count(x => x == listSentenceNoDuplicates[int1]));
-
-                    z = m.RemoveAll(x => x == listSentenceNoDuplicates[int1]);
-
-                    if (int1 == 1000 || int1 == 2000 || int1 == 3000 || int1 == 4000 || int1 == 5000 || int1 == 10000)
-                    {
-                        Console.WriteLine("ok");
-                    }
-                }
 
 
 
@@ -258,12 +240,6 @@ namespace Strings
 
 
 
-                /*
-                List<claSentence> listSentence = new List<claSentence>(); //Лист предложений.
-                List<claWord> listWord = new List<claWord>(); //Лист слов.
-                List<claLetter> listLetter = new List<claLetter>(); //Лист букв.
-                List<claPunctuationMark> listPunctuationMark = new List<claPunctuationMark>(); //Лист знаков препинания.
-                */
 
 
 
@@ -460,7 +436,7 @@ namespace Strings
         public static void F_voiSentence(ref string f_strText)
         {
             string strPattern; //Паттерн.
-            MatchCollection strMatchCollectionSentence; //Коллекция слов.
+            MatchCollection strMatchCollection; //Коллекция слов.
             MatchCollection strMatchCollectionWord; //Коллекция предложений.
 
             string strSentence; //Предложение.
@@ -468,29 +444,112 @@ namespace Strings
             int intSentenceWordCount; //Количество слов в предложениии.
 
             strPattern = @"((\.\.\.)|[0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s]])((Sr.|Jr.|Mrs.|Mr.|Dr.|.exe|[0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.]])*(\.\.\.\""|\.\""|\!\""|\?\""|\.\.\.\'|\.\'|\!\'|\?\'|\.\.\.|[\.\!\?])"; //Regex предложений.
-            strMatchCollectionSentence = Regex.Matches(f_strText, strPattern); //Создаем коллекцию предложений.
+            strMatchCollection = Regex.Matches(f_strText, strPattern); //Коллекция предложений.
 
-            List<claSentence> listSentence = new List<claSentence>(); //Создаем лист предложений.
+            List<claSentence> listSentence = new List<claSentence>(); //Лист предложений.
 
-            for (int int1 = 0; int1 <= strMatchCollectionSentence.Count - 1; int1++)
+            for (int int1 = 0; int1 <= strMatchCollection.Count - 1; int1++)
             {
-                strSentence = strMatchCollectionSentence[int1].Value; //Предложение.
+                strSentence = strMatchCollection[int1].Value; //Предложение.
                 intSentenceCharactersCount = strSentence.Length; //Количество символов в предложениии.
-                strMatchCollectionWord = Regex.Matches(strSentence, strPattern); //Создаем коллекцию слов.
+                strMatchCollectionWord = Regex.Matches(strSentence, strPattern); //Коллекция слов.
                 intSentenceWordCount = strMatchCollectionWord.Count; //Количество слов в предложениии.
                 
                 listSentence.Add(new claSentence(strSentence, intSentenceCharactersCount, intSentenceWordCount));
             }
-            
+
+            f_strText = string.Join(" ", strMatchCollection); //После парсинга возвращаем все предложения в strText (чистый текст без остатков после парсинга).
+
+
+
+
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Файлы
-            
-            
-            Console.WriteLine("Предложения");
+
+
         }
 
+        
+        
+        
+        
+        
+        //List<claLetter> listLetter = new List<claLetter>(); //Лист букв.
+        //List<claPunctuationMark> listPunctuationMark = new List<claPunctuationMark>(); //Лист знаков препинания.
+        
+        
 
 
 
+
+
+        //Парсинг текста на слова.
+        public static void F_voiWord(string f_strText)
+        {
+            string strPattern; //Паттерн.
+            MatchCollection strMatchCollection; //Коллекция слов.
+
+            string strWord; //Слово.
+            int intWordCount; //Количество таких слов в тексте.
+
+            strPattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])"; //Regex слов.
+            strMatchCollection = Regex.Matches(f_strText, strPattern); //Коллекция слов.
+
+            List<claWord> listWord = new List<claWord>(); //Лист слов.
+
+            for (int int1 = 0; int1 <= strMatchCollection.Count - 1; int1++)
+            {
+                strWord = strMatchCollection[int1].Value; //Слово.
+
+
+
+
+
+
+                int numberUnvaccinated = pets.Count(p => p.Vaccinated == false);
+
+
+
+
+                //Количество каждого слова в тесте.
+                List<string> m = new List<string>(listSentenceSort);
+
+                List<int> listSentenceCountInText = new List<int>(listSentenceNoDuplicates.Count);
+
+                int z;
+                for (int int1 = 0; int1 <= listSentenceNoDuplicates.Count - 1; int1++)
+                {
+                    listSentenceCountInText.Add(m.Count(x => x == listSentenceNoDuplicates[int1]));
+
+                    z = m.RemoveAll(x => x == listSentenceNoDuplicates[int1]);
+
+                    if (int1 == 1000 || int1 == 2000 || int1 == 3000 || int1 == 4000 || int1 == 5000 || int1 == 10000)
+                    {
+                        Console.WriteLine("ok");
+                    }
+                }
+
+
+
+
+
+
+
+
+
+                intWordCount = ; //Количество таких слов в тексте.
+
+                listSentence.Add(new claSentence(strSentence, intSentenceCharactersCount, intSentenceWordCount));
+            }
+
+            f_strText = string.Join(" ", strMatchCollection); //После парсинга возвращаем все предложения в strText (чистый текст без остатков после парсинга).
+
+
+
+
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Файлы
+
+
+        }
 
 
 

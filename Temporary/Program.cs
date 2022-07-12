@@ -10,7 +10,7 @@ namespace Strings
         public static void Main(string[] args)
         {
             var listSentence = new List<string>() {"ghj jk","s", "ghj jk", "s","b"};
-
+            
             //Сортируем предложения.
             var listSentenceSort = listSentence.OrderBy(x => x).ToList();
 
