@@ -9,11 +9,12 @@ namespace Strings
     internal class claLetter
     {
         public string strLetter; //Буква.
-        public int intLetterCount = 0; //Количество таких букв в тексте.
+        public int intLetterCount; //Количество таких букв в тексте.
 
-        public claLetter(string stLetter)
+        public claLetter(string strLetter, int intLetterCount)
         {
-            this.strLetter = strLetter;
+            this.strLetter = strLetter; //Буква.
+            this.intLetterCount = intLetterCount; //Количество таких букв в тексте.
         }
     }
 }
