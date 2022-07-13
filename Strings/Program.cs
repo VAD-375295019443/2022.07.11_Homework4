@@ -119,11 +119,13 @@ namespace Strings
                 listSentence.Add(new claSentence(strSentence, intCountSentenceInText, intCountWordInSentence, intCountCharactersInSentence));  //Заполняем лист предложений.
 
 
+                //Вывод результата парсинга текста на предложения.
                 f_strText = string.Join("\n", matchSentence);
                 string strPath = $@"d:\VAD_Homework4\Parsing\Sentence.txt";
                 File.WriteAllText(strPath, f_strText);
 
 
+                //Вывод результата парсинга текста на предложения, сортированные по количеству встречаемости в тексте.
                 List<string> listSentenceSorted = new List<string>(listSentence.Select(x => x).Distinct().ToList().Count);
                 for(int int1=0; int1<=listSentence.Count-1; int1++)
                 {
@@ -134,6 +136,7 @@ namespace Strings
                 File.WriteAllText(strPath, f_strText);
 
 
+                //Вывод запроса на максимальное количество символов в предложении.
                 int intMaxCountCharactersInSentence = listSentence.Max(x => x.intCountCharactersInSentence);
                 var MaxCountCharactersInSentence = listSentence.Where(x => x.intCountCharactersInSentence == intMaxCountCharactersInSentence).ToList();
                 List<string> listMaxCountCharactersInSentence = new List<string>(MaxCountCharactersInSentence.Select(x => x).Distinct().ToList().Count);
@@ -146,6 +149,7 @@ namespace Strings
                 File.WriteAllText(strPath, f_strText);
 
 
+                //Вывод запроса на минимальное количество слов в предложении.
                 int intMinCountWordInSentence = listSentence.Min(x => x.intCountWordInSentence);
                 var MinCountWordInSentence = listSentence.Where(x => x.intCountWordInSentence == intMinCountWordInSentence).ToList();
                 List<string> listMinCountWordInSentence = new List<string>(MinCountWordInSentence.Select(x => x).Distinct().ToList().Count);
@@ -212,7 +216,7 @@ namespace Strings
 
 
 
-
+                //Вывод результата парсинга текста на слова.
                 f_strText = string.Join("\n", matchWord);
                 string strPath = $@"d:\VAD_Homework4\Parsing\Word.txt";
                 File.WriteAllText(strPath, f_strText);
@@ -280,7 +284,7 @@ namespace Strings
 
 
 
-
+                //Вывод результата парсинга текста на буквы.
                 f_strText = string.Join("\n", matchLetter);
                 string strPath = $@"d:\VAD_Homework4\Parsing\Letter.txt";
                 File.WriteAllText(strPath, f_strText);
@@ -347,7 +351,7 @@ namespace Strings
 
 
 
-
+                //Вывод результата парсинга текста на знаки препинания.
                 f_strText = string.Join("\n", matchPunctuationMark);
                 string strPath = $@"d:\VAD_Homework4\Parsing\PunctuationMark.txt";
                 File.WriteAllText(strPath, f_strText);
