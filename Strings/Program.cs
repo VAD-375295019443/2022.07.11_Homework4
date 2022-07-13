@@ -33,7 +33,6 @@ namespace Strings
                 {
                     string strText = "";
 
-                    Console.WriteLine("");
                     Console.WriteLine("Создание рабочих дирректорий и чтение данных из файла \"d:\\sample.txt\"");
                     if (F_booReadFromFile(ref strText) == true)
                     {
@@ -116,7 +115,7 @@ namespace Strings
 
                     Console.WriteLine("");
                     Console.WriteLine("Анализ текста завершен.");
-                    Console.WriteLine("Адрес рабочих дирректрий: \"d:\\VAD_Homework4\"");
+                    Console.WriteLine("Адрес рабочих дирректрий: \"d:\\VAD_Homework4\\\"");
                     Console.WriteLine("");
                     Console.WriteLine("ВНИМАНИЕ!");
                     Console.WriteLine("При выходе из программы через Exit все рабочие дирректории будут удалены.");
