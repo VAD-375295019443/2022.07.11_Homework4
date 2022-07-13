@@ -10,71 +10,165 @@ namespace Strings
         {
             while (true)
             {
-                
-                
-                
-                
-                
-                string strText = "";
+                Console.Clear();
+                Console.WriteLine("Пожалуйста, поместите файл с названием \"sample.txt\" по указанному пути \"d:\\sample.txt\"");
+                Console.WriteLine("");
+                Console.WriteLine("Для выхода из программы и удаления рабочих дирректорий наберите Exit.");
+                Console.WriteLine("Для продолжения нажмите Enter.");
+                string? strMenu = Console.ReadLine();
 
-                if (F_booReadFromFile(ref strText) == false)
+                if (strMenu == "Exit" || strMenu == "exit")
                 {
-                    continue;
+                    string strPath = @"d:\VAD_Homework4";
+                    if (Directory.Exists(strPath) == true) //Если директория существует.
+                    {
+                        Directory.Delete(strPath, true); //Удаляем.
+                    }
+
+                    Console.Clear();
+                    Console.WriteLine("Goodbye.");
+                    break;
                 }
-
-
-
-                if (F_booSentence(ref strText) == false)
+                else
                 {
-                    continue;
+                    string strText = "";
+
+                    Console.WriteLine("");
+                    Console.WriteLine("Создание рабочих дирректорий и чтение данных из файла \"d:\\sample.txt\"");
+                    if (F_booReadFromFile(ref strText) == true)
+                    {
+                        Console.WriteLine("          выполнено успешно.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Запрашиваемый файл \"d:\\sample.txt\" отсутствует.");
+                        Console.WriteLine("");
+                        Console.WriteLine("Для продолжения нажмите Enter.");
+                        strMenu = Console.ReadLine();
+                        continue;
+                    }
+                    
+
+                    Console.WriteLine("Парсинг текста на предложения.");
+                    if (F_booSentence(ref strText) == true)
+                    {
+                        Console.WriteLine("          выполнено успешно.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Недостаточно данных для парсинга текста на предложения.");
+                        Console.WriteLine("");
+                        Console.WriteLine("Для продолжения нажмите Enter.");
+                        strMenu = Console.ReadLine();
+                        continue;
+                    }
+
+
+                    Console.WriteLine("Парсинг текста на слова.");
+                    if (F_booWord(strText) == true)
+                    {
+                        Console.WriteLine("          выполнено успешно.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Недостаточно данных для парсинга текста на слова.");
+                        Console.WriteLine("");
+                        Console.WriteLine("Для продолжения нажмите Enter.");
+                        strMenu = Console.ReadLine();
+                        continue;
+                    }
+
+
+                    Console.WriteLine("Парсинг текста на буквы.");
+                    if (F_booLetter(strText) == true)
+                    {
+                        Console.WriteLine("          выполнено успешно.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Недостаточно данных для парсинга текста на буквы.");
+                        Console.WriteLine("");
+                        Console.WriteLine("Для продолжения нажмите Enter.");
+                        strMenu = Console.ReadLine();
+                        continue;
+                    }
+
+
+                    Console.WriteLine("Парсинг текста на знаки препинания.");
+                    if (F_booPunctuationMark(strText) == true)
+                    {
+                        Console.WriteLine("          выполнено успешно.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Недостаточно данных для парсинга текста на знаки препинания.");
+                        Console.WriteLine("");
+                        Console.WriteLine("Для продолжения нажмите Enter.");
+                        strMenu = Console.ReadLine();
+                        continue;
+                    }
+
+
+                    Console.WriteLine("");
+                    Console.WriteLine("Анализ текста завершен.");
+                    Console.WriteLine("Адрес рабочих дирректрий: \"d:\\VAD_Homework4\"");
+                    Console.WriteLine("");
+                    Console.WriteLine("ВНИМАНИЕ!");
+                    Console.WriteLine("При выходе из программы через Exit все рабочие дирректории будут удалены.");
+                    Console.WriteLine("");
+                    Console.WriteLine("Для продолжения нажмите Enter.");
+                    strMenu = Console.ReadLine();
                 }
-
-
-
-                if (F_booWord(strText) == false)
-                {
-                    continue;
-                }
-
-
-
-
-                if (F_booLetter(strText) == false)
-                {
-                    continue;
-                }
-
-
-
-
-
-                if (F_booPunctuationMark(strText) == false)
-                {
-                    continue;
-                }
-
-
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
 
+        //Создание рабочих дирректорий и чтение данных из файла
+        public static bool F_booReadFromFile(ref string strText)
+        {
+            string strPath = @"d:\sample.txt";
+
+            if (File.Exists(strPath) == true) //Если файл существует.
+            {
+                strPath = @"d:\sample.txt";
+                strText = File.ReadAllText(strPath); //Читаем данные из файла в переменную.
 
 
+                strPath = @"d:\VAD_Homework4\Parsing";
+                if (Directory.Exists(strPath) == true) //Если директория существует.
+                {
+                    Directory.Delete(strPath, true); //Удаляем.
+                }
+                Directory.CreateDirectory(strPath); //Создаем заново чистую.
 
+                strPath = @"d:\VAD_Homework4\Sorted";
+                if (Directory.Exists(strPath) == true) //Если директория существует.
+                {
+                    Directory.Delete(strPath, true); //Удаляем.
+                }
+                Directory.CreateDirectory(strPath); //Создаем заново чистую.
 
+                strPath = @"d:\VAD_Homework4\Request";
+                if (Directory.Exists(strPath) == true) //Если директория существует.
+                {
+                    Directory.Delete(strPath, true); //Удаляем.
+                }
+                Directory.CreateDirectory(strPath); //Создаем заново чистую.
+
+                return (true);
+            }
+            else
+            {
+                return (false);
+            }
+        }
+        
+        
         //Парсинг текста на предложения.
         public static bool F_booSentence(ref string f_strText)
         {
@@ -145,8 +239,9 @@ namespace Strings
                     listMaxCountCharactersInSentence.Add($"Количество символов = {Convert.ToString(MaxCountCharactersInSentence[int1].intCountCharactersInSentence)}: {MaxCountCharactersInSentence[int1].strSentence}");
                 }
                 f_strText = string.Join("\n", listMaxCountCharactersInSentence);
-                strPath = $@"d:\VAD_Homework4\Request\MaxCountCharactersInSentence.txt";
-                File.WriteAllText(strPath, f_strText);
+                strPath = $@"d:\VAD_Homework4\Request\Request.txt";
+                File.WriteAllText(strPath, "                ПРЕДЛОЖЕНИЯ С МАКСИМАЛЬНЫМ КОЛИЧЕСТВОМ СИМВОЛОВ\n\n");
+                File.AppendAllText(strPath, f_strText);
 
 
                 //Вывод запроса на минимальное количество слов в предложении.
@@ -158,21 +253,17 @@ namespace Strings
                     listMinCountWordInSentence.Add($"Количество слов = {Convert.ToString(MinCountWordInSentence[int1].intCountWordInSentence)}: {MinCountWordInSentence[int1].strSentence}");
                 }
                 f_strText = string.Join("\n", listMinCountWordInSentence);
-                strPath = $@"d:\VAD_Homework4\Request\MinCountWordInSentence.txt";
-                File.WriteAllText(strPath, f_strText);
+                strPath = $@"d:\VAD_Homework4\Request\Request.txt";
+                File.AppendAllText(strPath, "\n\n                ПРЕДЛОЖЕНИЯ С МИНИМАЛЬНЫМ КОЛИЧЕСТВОМ СЛОВ\n\n");
+                File.AppendAllText(strPath, f_strText);
 
 
                 f_strText = string.Join(" ", matchSentence); //После парсинга возвращаем все предложения в strText (чистый текст без оставшейся абры-кадабры после парсинга).
 
-                Console.WriteLine("Парсинг текста на предложения: успех.");
                 return (true);
             }
             else
             {
-                Console.WriteLine("Недостаточно данных для парсинга текста на предложения.");
-                Console.WriteLine("");
-                Console.WriteLine("Для продолжения нажмите Enter.");
-                Console.ReadLine();
                 return (false);
             }
         }
@@ -212,10 +303,6 @@ namespace Strings
                 listWord.Add(new claWord(strWord, intCountWordInText));  //Заполняем лист слов.
 
 
-
-
-
-
                 //Вывод результата парсинга текста на слова.
                 f_strText = string.Join("\n", matchWord);
                 string strPath = $@"d:\VAD_Homework4\Parsing\Word.txt";
@@ -232,21 +319,13 @@ namespace Strings
                 strPath = $@"d:\VAD_Homework4\Sorted\WordSorted.txt";
                 File.WriteAllText(strPath, f_strText);
 
-
-
-                Console.WriteLine("Парсинг текста на слова: успех.");
                 return (true);
             }
             else
             {
-                Console.WriteLine("Недостаточно данных для парсинга текста на слова.");
-                Console.WriteLine("");
-                Console.WriteLine("Для продолжения нажмите Enter.");
-                Console.ReadLine();
                 return (false);
             }
         }
-
 
 
         //Парсинг текста на буквы.
@@ -283,7 +362,6 @@ namespace Strings
                 listLetter.Add(new claLetter(strLetter, intCountLetterInText));  //Заполняем лист букв.
 
 
-
                 //Вывод результата парсинга текста на буквы.
                 f_strText = string.Join("\n", matchLetter);
                 string strPath = $@"d:\VAD_Homework4\Parsing\Letter.txt";
@@ -301,19 +379,26 @@ namespace Strings
                 File.WriteAllText(strPath, f_strText);
 
 
-                Console.WriteLine("Парсинг текста на буквы: успех.");
+                //Вывод запроса на максимальное количество букв в тексте.
+                int intMaxCountLetterInText = listLetter.Max(x => x.intCountLetterInText);
+                var MaxCountLetterInText = listLetter.Where(x => x.intCountLetterInText == intMaxCountLetterInText).ToList();
+                List<string> listMaxCountLetterInText = new List<string>(MaxCountLetterInText.Select(x => x).Distinct().ToList().Count);
+                for (int int1 = 0; int1 <= MaxCountLetterInText.Count - 1; int1++)
+                {
+                    listMaxCountLetterInText.Add($"Количество букв = {Convert.ToString(MaxCountLetterInText[int1].intCountLetterInText)}: {MaxCountLetterInText[int1].strLetter}");
+                }
+                f_strText = string.Join("\n", listMaxCountLetterInText);
+                strPath = $@"d:\VAD_Homework4\Request\Request.txt";
+                File.AppendAllText(strPath, "\n\n                БУКВЫ С МАКСИМАЛЬНЫМ КОЛИЧЕСТВОМ ПОВТОРЕНИЙ\n\n");
+                File.AppendAllText(strPath, f_strText);
+
                 return (true);
             }
             else
             {
-                Console.WriteLine("Недостаточно данных для парсинга текста на буквы.");
-                Console.WriteLine("");
-                Console.WriteLine("Для продолжения нажмите Enter.");
-                Console.ReadLine();
                 return (false);
             }
         }
-
 
 
         //Парсинг текста на знаки препинания.
@@ -350,8 +435,6 @@ namespace Strings
                 listPunctuationMark.Add(new claPunctuationMark(strPunctuationMark, intCountPunctuationMarkInText));  //Заполняем лист знаков препинания.
 
 
-
-
                 //Вывод результата парсинга текста на знаки препинания.
                 f_strText = string.Join("\n", matchPunctuationMark);
                 string strPath = $@"d:\VAD_Homework4\Parsing\PunctuationMark.txt";
@@ -368,82 +451,12 @@ namespace Strings
                 strPath = $@"d:\VAD_Homework4\Sorted\PunctuationMarkSorted.txt";
                 File.WriteAllText(strPath, f_strText);
 
-                Console.WriteLine("Парсинг текста на знаки препинания: успех.");
                 return (true);
             }
             else
             {
-                Console.WriteLine("Недостаточно данных для парсинга текста на знаки препинания.");
-                Console.WriteLine("");
-                Console.WriteLine("Для продолжения нажмите Enter.");
-                Console.ReadLine();
                 return (false);
             }
         }
-
-
-        public static bool F_booReadFromFile(ref string strText)
-        {
-            Console.Clear();
-
-            Console.WriteLine("Анализируемый файл с названием \"sample.txt\" поместите по указанному пути \"d:\\sample.txt\"");
-            Console.WriteLine("");
-            Console.WriteLine("Для продолжения нажмите Enter.");
-            Console.ReadLine();
-
-            string strPath = @"d:\sample.txt";
-
-            if (File.Exists(strPath) == true) //Если файл существует.
-            {
-                strPath = @"d:\sample.txt";
-                strText = File.ReadAllText(strPath); //Читаем данные из файла в переменную.
-                Console.WriteLine("Чтение данных из файла \"d:\\sample.txt\": успех.");
-
-
-                strPath = @"d:\VAD_Homework4\Parsing";
-                if (Directory.Exists(strPath) == true) //Если директория существует.
-                {
-                    Directory.Delete(strPath, true); //Удаляем.
-                }
-                Directory.CreateDirectory(strPath); //Создаем заново чистую.
-
-                strPath = @"d:\VAD_Homework4\Sorted";
-                if (Directory.Exists(strPath) == true) //Если директория существует.
-                {
-                    Directory.Delete(strPath, true); //Удаляем.
-                }
-                Directory.CreateDirectory(strPath); //Создаем заново чистую.
-
-                strPath = @"d:\VAD_Homework4\Request";
-                if (Directory.Exists(strPath) == true) //Если директория существует.
-                {
-                    Directory.Delete(strPath, true); //Удаляем.
-                }
-                Directory.CreateDirectory(strPath); //Создаем заново чистую.
-                
-                Console.WriteLine("Создание пользовательских дирректорий: успех.");
-
-                return (true);
-            }
-            else
-            {
-                Console.WriteLine("Запрашиваемый файл \"d:\\sample.txt\" отсутствует.");
-                Console.WriteLine("");
-                Console.WriteLine("Для продолжения нажмите Enter.");
-                Console.ReadLine();
-                return (false);
-            }
-        }
-
-
-
-        public static bool F_booWriteInFile(ref string strText)
-        {
-
-
-
-            return (true);
-        }
-
     }
 }
