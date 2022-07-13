@@ -125,7 +125,7 @@ namespace Strings
                 File.WriteAllText(strPath, f_strText);
 
 
-                //Вывод результата парсинга текста на предложения, сортированные по количеству встречаемости в тексте.
+                //Вывод сортированного результата парсинга текста на предложения.
                 List<string> listSentenceSorted = new List<string>(listSentence.Select(x => x).Distinct().ToList().Count);
                 for(int int1=0; int1<=listSentence.Count-1; int1++)
                 {
@@ -222,7 +222,7 @@ namespace Strings
                 File.WriteAllText(strPath, f_strText);
 
 
-
+                //Вывод сортированного результата парсинга текста на слова.
                 List<string> listWordSorted = new List<string>(listWord.Select(x => x).Distinct().ToList().Count);
                 for (int int1 = 0; int1 <= listWord.Count - 1; int1++)
                 {
@@ -290,6 +290,7 @@ namespace Strings
                 File.WriteAllText(strPath, f_strText);
 
 
+                //Вывод сортированного результата парсинга текста на буквы.
                 List<string> listLetterSorted = new List<string>(listLetter.Select(x => x).Distinct().ToList().Count);
                 for (int int1 = 0; int1 <= listLetter.Count - 1; int1++)
                 {
@@ -357,6 +358,7 @@ namespace Strings
                 File.WriteAllText(strPath, f_strText);
 
 
+                //Вывод сортированного результата парсинга текста на знаки препинания.
                 List<string> listPunctuationMarkSorted = new List<string>(listPunctuationMark.Select(x => x).Distinct().ToList().Count);
                 for (int int1 = 0; int1 <= listPunctuationMark.Count - 1; int1++)
                 {
