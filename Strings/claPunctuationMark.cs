@@ -9,12 +9,12 @@ namespace Strings
     internal class claPunctuationMark
     {
         public string strPunctuationMark; //Знак препинания.
-        public int CintountPunctuationMarkInText; //Количество таких знаков препинания в тексте.
+        public int intCountPunctuationMarkInText; //Количество таких знаков препинания в тексте.
 
-        public claPunctuationMark(string strPunctuationMark, int CintountPunctuationMarkInText)
+        public claPunctuationMark(string strPunctuationMark, int intCountPunctuationMarkInText)
         {
             this.strPunctuationMark = strPunctuationMark; //Знак препинания.
-            this.CintountPunctuationMarkInText = CintountPunctuationMarkInText; //Количество таких знаков препинания в тексте.
+            this.intCountPunctuationMarkInText = intCountPunctuationMarkInText; //Количество таких знаков препинания в тексте.
         }
     }
 }
