@@ -9,14 +9,19 @@ namespace Strings
     internal class claSentence
     {
         public string strSentence; //Предложение.
-        public int intSentenceCharactersCount; //Количество символов в предложениии.
-        public int intSentenceWordCount; //Количество слов в предложениии.
+        public int intCountSentenceInText; //Количество таких предложений в тексте.
+        public int intCountWordInSentence; //Количество слов в предложениии.
+        public int intCountCharactersInSentence; //Количество символов в предложениии.
 
-        public claSentence(string strSentence, int intSentenceCharactersCount, int intSentenceWordCount)
+
+
+
+        public claSentence(string strSentence, int intCountSentenceInText, int intCountWordInSentence, int intCountCharactersInSentence)
         {
             this.strSentence = strSentence; //Предложение.
-            this.intSentenceCharactersCount = intSentenceCharactersCount; //Количество символов в предложениии.
-            this.intSentenceWordCount = intSentenceWordCount; //Количество слов в предложениии.
+            this.intCountSentenceInText = intCountSentenceInText; //Количество таких предложений в тексте.
+            this.intCountWordInSentence = intCountWordInSentence; //Количество слов в предложениии.
+            this.intCountCharactersInSentence = intCountCharactersInSentence; //Количество символов в предложениии.
         }
     }
 }

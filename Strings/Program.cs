@@ -23,7 +23,7 @@ namespace Strings
 
 
 
-                F_voiWord(strText);
+                F_voiSentence(ref strText);
 
                 
                 
@@ -42,44 +42,67 @@ namespace Strings
             }
         }
 
+
+
+
+
+
         //Парсинг текста на предложения.
         public static void F_voiSentence(ref string f_strText)
         {
-            string strPattern; //Паттерн.
-            MatchCollection colMatchCollection; //Коллекция слов.
-            MatchCollection colMatchCollectionWord; //Коллекция предложений.
+            string strPattern = @"((\.\.\.)|[0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s]])((Sr.|Jr.|Mrs.|Mr.|Dr.|.exe|[0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.]])*(\.\.\.\""|\.\""|\!\""|\?\""|\.\.\.\'|\.\'|\!\'|\?\'|\.\.\.|[\.\!\?])"; //Regex предложений.
+            MatchCollection matchSentence = Regex.Matches(f_strText, strPattern); //Коллекция предложений.
 
-            string strSentence; //Предложение.
-            int intSentenceCharactersCount; //Количество символов в предложениии.
-            int intSentenceWordCount; //Количество слов в предложениии.
-
-            strPattern = @"((\.\.\.)|[0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s]])((Sr.|Jr.|Mrs.|Mr.|Dr.|.exe|[0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.]])*(\.\.\.\""|\.\""|\!\""|\?\""|\.\.\.\'|\.\'|\!\'|\?\'|\.\.\.|[\.\!\?])"; //Regex предложений.
-            colMatchCollection = Regex.Matches(f_strText, strPattern); //Коллекция предложений.
-
-            List<string> listMatchCollection = new List<string>(colMatchCollection.Count); //Лист предложений.
-            for (int int1 = 0; int1 <= colMatchCollection.Count - 1; int1++)
+            if (matchSentence.Count > 0)
             {
-                listMatchCollection.Add(colMatchCollection[int1].Value); //Заполняем лист предложений.
+                var matchSentenceSort = matchSentence.OrderBy(x => x.Value).ToList(); //Сортируем коллекцию предложений.
+
+                string strSentence = ""; //Предложение.
+                int intCountSentenceInText = 0; //Количество таких предложений в тексте.
+                int intCountWordInSentence = 0; //Количество слов в предложениии.
+                int intCountCharactersInSentence = 0; //Количество символов в предложениии.
+                List<claSentence> listSentence = new List<claSentence>(matchSentenceSort.Select(x => x.Value).Distinct().ToList().Count); //Лист предложений.
+
+                for (int int1 = 0; int1 <= matchSentenceSort.Count - 1; int1++)
+                {
+                    if (matchSentenceSort[int1].Value != strSentence)
+                    {
+                        if (int1 != 0)
+                        {
+                            listSentence.Add(new claSentence(strSentence, intCountSentenceInText, intCountWordInSentence, intCountCharactersInSentence));  //Заполняем лист предложений.
+                        }
+
+                        strSentence = matchSentenceSort[int1].Value; //Предложение.
+                        intCountSentenceInText = 1; //Количество таких предложений в тексте.
+
+                        strPattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])"; //Regex слов.
+                        MatchCollection matchWord = Regex.Matches(strSentence, strPattern); //Коллекция слов.
+                        intCountWordInSentence = matchWord.Count; //Количество слов в предложениии.
+
+                        intCountCharactersInSentence = strSentence.Length; //Количество символов в предложениии.
+                    }
+                    else
+                    {
+                        intCountSentenceInText++;
+                    }
+                }
+                listSentence.Add(new claSentence(strSentence, intCountSentenceInText, intCountWordInSentence, intCountCharactersInSentence));  //Заполняем лист предложений.
+
+                f_strText = string.Join(" ", matchSentence); //После парсинга возвращаем все предложения в strText (чистый текст без оставшейся абры-кадабры после парсинга).
+
+
+
+
+                for (int int1 = 0; int1 <= listSentence.Count - 1; int1++)
+                {
+                    Console.WriteLine($"В тексте предложений {listSentence[int1].intCountSentenceInText} - В предложении слов {listSentence[int1].intCountWordInSentence} - В предложении символов {listSentence[int1].intCountCharactersInSentence} - {listSentence[int1].strSentence}");
+
+                }
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Файлы
             }
-
-            var listMatchCollectionDistinct = listMatchCollection.Select(x => x).Distinct().ToList(); //Лист предложений без повторов.
-
-            List<claSentence> listSentenceDistinct = new List<claSentence>(listMatchCollection.Count); //Лист экземпляров предложений без повторов.
-
-            for (int int1 = 0; int1 <= listMatchCollectionDistinct.Count - 1; int1++)
-            {
-                strSentence = listMatchCollectionDistinct[int1]; //Предложение.
-                intSentenceCharactersCount = strSentence.Length; //Количество символов в предложениии.
-                colMatchCollectionWord = Regex.Matches(strSentence, strPattern); //Коллекция слов.
-                intSentenceWordCount = colMatchCollectionWord.Count; //Количество слов в предложениии.
-
-                listSentenceDistinct.Add(new claSentence(strSentence, intSentenceCharactersCount, intSentenceWordCount));  //Заполняем лист предложений без повторов.
-            }
-
-            f_strText = string.Join(" ", colMatchCollection); //После парсинга возвращаем все предложения в strText (чистый текст без оставшейся абры-кадабры после парсинга).
-            
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Файлы
         }
+
+
 
 
 
@@ -88,75 +111,41 @@ namespace Strings
         //Парсинг текста на слова.
         public static void F_voiWord(string f_strText)
         {
-            string strPattern; //Паттерн.
-            MatchCollection colMatchCollection; //Коллекция слов.
+            string strPattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])"; //Regex слов.
+            MatchCollection matchWord = Regex.Matches(f_strText, strPattern); //Коллекция слов.
 
-            string strWord; //Слово.
-            int intWordCount; //Количество таких слов в тексте.
-
-            strPattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])"; //Regex слов.
-            colMatchCollection = Regex.Matches(f_strText, strPattern); //Коллекция слов.
+            if(matchWord.Count>0)
+            {
+                var matchWordSort = matchWord.OrderBy(x => x.Value).ToList(); //Сортируем коллекцию слов.
             
-            List<string> listMatchCollection = new List<string>(colMatchCollection.Count); //Лист слов.
-            for (int int1 = 0; int1 <= colMatchCollection.Count - 1; int1++)
-            {
-                listMatchCollection.Add(colMatchCollection[int1].Value); //Заполняем лист слов.
-            }
-            
-            var listMatchCollectionDistinct = listMatchCollection.Select(x => x).Distinct().ToList(); //Коллекция слов без повторов.
-
-            List<claWord> listWordDistinct = new List<claWord>(listMatchCollection.Count); //Лист слов без повторов.
-
-
-
-            var zzzz = listMatchCollection.OrderBy(x => x).ToList();
-
-
-            for (int int1 = 0; int1 <= zzzz.Count - 1; int1++)
-            {
+                string strWord = ""; //Слово.
+                int intCountWordInText = 0; //Количество таких слов в тексте.
+                List<claWord> listWord = new List<claWord>(matchWordSort.Select(x => x.Value).Distinct().ToList().Count); //Лист слов.
                 
+                for (int int1 = 0; int1 <= matchWordSort.Count - 1; int1++)
+                {
+                    if (matchWordSort[int1].Value != strWord)
+                    {
+                        if (int1 != 0)
+                        {
+                            listWord.Add(new claWord(strWord, intCountWordInText));  //Заполняем лист слов.
+                        }
+                    
+                        strWord = matchWordSort[int1].Value;
+                        intCountWordInText = 1;
+                    }
+                    else
+                    {
+                        intCountWordInText++;
+                    }
+                }
+                listWord.Add(new claWord(strWord, intCountWordInText));  //Заполняем лист слов.
 
 
 
 
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Файлы
             }
-
-
-
-
-
-
-
-                string strText = string.Join(" ", listMatchCollection); //После парсинга возвращаем все слова в strText.
-            strText = " " + f_strText + " ";
-
-            MatchCollection colWord;
-
-            for (int int1 = 0; int1 <= listMatchCollectionDistinct.Count - 1; int1++)
-            {
-                strWord = listMatchCollectionDistinct[int1]; //Слово.
-                Console.WriteLine(strWord);
-                strPattern = @" "+ strWord + @" ";
-                colWord = Regex.Matches(strText, strPattern); //Коллекция слов.
-                
-                intWordCount = colWord.Count; //Количество таких слов в тексте.
-
-                listWordDistinct.Add(new claWord(strWord, intWordCount));  //Заполняем лист слов без повторов.
-            }
-
-            Console.WriteLine("ok");
-
-
-            /*
-            for (int int1 = 0; int1 <= listMatchCollectionDistinct.Count - 1; int1++)
-            {
-                strWord = listMatchCollectionDistinct[int1]; //Слово.
-                intWordCount = listMatchCollection.RemoveAll(x => x == strWord); //Количество таких слов в тексте.
-
-                listWordDistinct.Add(new claWord(strWord, intWordCount));  //Заполняем лист слов без повторов.
-            }
-            */
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Файлы
         }
 
 
@@ -166,39 +155,41 @@ namespace Strings
         //Парсинг текста на буквы.
         public static void F_voiLetter(string f_strText)
         {
-            string strPattern; //Паттерн.
-            MatchCollection colMatchCollection; //Коллекция букв.
+            string strPattern = @"[\w-[\d]]"; //Regex букв.
+            MatchCollection matchLetter = Regex.Matches(f_strText, strPattern); //Коллекция букв.
 
-            string strLetter; //Буква.
-            int intLetterCount; //Количество таких букв в тексте.
-
-            strPattern = @"[\w-[\d]]"; //Regex букв.
-            colMatchCollection = Regex.Matches(f_strText, strPattern); //Коллекция букв.
-
-            List<string> listMatchCollection = new List<string>(colMatchCollection.Count); //Лист букв.
-            for (int int1 = 0; int1 <= colMatchCollection.Count - 1; int1++)
+            if (matchLetter.Count > 0)
             {
-                listMatchCollection.Add(colMatchCollection[int1].Value); //Заполняем лист букв.
+                var matchLetterSort = matchLetter.OrderBy(x => x.Value).ToList(); //Сортируем коллекцию букв.
+
+                string strLetter = ""; //Буква.
+                int intCountLetterInText = 0; //Количество таких букв в тексте.
+                List<claLetter> listLetter = new List<claLetter>(matchLetterSort.Select(x => x.Value).Distinct().ToList().Count); //Лист букв.
+                
+                for (int int1 = 0; int1 <= matchLetterSort.Count - 1; int1++)
+                {
+                    if (matchLetterSort[int1].Value != strLetter)
+                    {
+                        if (int1 != 0)
+                        {
+                            listLetter.Add(new claLetter(strLetter, intCountLetterInText));  //Заполняем лист букв.
+                        }
+
+                        strLetter = matchLetterSort[int1].Value;
+                        intCountLetterInText = 1;
+                    }
+                    else
+                    {
+                        intCountLetterInText++;
+                    }
+                }
+                listLetter.Add(new claLetter(strLetter, intCountLetterInText));  //Заполняем лист букв.
+
+
+
+
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Файлы
             }
-
-            var listMatchCollectionDistinct = listMatchCollection.Select(x => x).Distinct().ToList(); //Коллекция букв без повторов.
-
-            List<claLetter> listLetterDistinct = new List<claLetter>(listMatchCollection.Count); //Лист букв без повторов.
-
-            for (int int1 = 0; int1 <= listMatchCollectionDistinct.Count - 1; int1++)
-            {
-                strLetter = listMatchCollectionDistinct[int1]; //Буква.
-                intLetterCount = listMatchCollection.RemoveAll(x => x == strLetter); //Количество таких букв в тексте.
-
-                listLetterDistinct.Add(new claLetter(strLetter, intLetterCount));  //Заполняем лист букв без повторов.
-            }
-
-
-
-
-
-
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Файлы
         }
 
 
@@ -208,40 +199,44 @@ namespace Strings
         //Парсинг текста на знаки препинания.
         public static void F_voiPunctuationMark(ref string f_strText)
         {
-            string strPattern; //Паттерн.
-            MatchCollection colMatchCollection; //Коллекция знаков препинания.
+            string strPattern = @"(\.\.\.)|[\?\!\.\""\'\,\:\;]"; //Regex знаков препинания.
+            MatchCollection matchPunctuationMark = Regex.Matches(f_strText, strPattern); //Коллекция знаков препинания.
 
-            string strPunctuationMark; //Знак препинания.
-            int intPunctuationMarkCount; //Количество таких знаков препинания в тексте.
-
-            strPattern = @"(\.\.\.)|[\?\!\.\""\'\,\:\;]"; //Regex знаков препинания.
-            colMatchCollection = Regex.Matches(f_strText, strPattern); //Коллекция знаков препинания.
-
-            List<string> listMatchCollection = new List<string>(colMatchCollection.Count); //Лист знаков препинания.
-            for (int int1 = 0; int1 <= colMatchCollection.Count - 1; int1++)
+            if (matchPunctuationMark.Count > 0)
             {
-                listMatchCollection.Add(colMatchCollection[int1].Value); //Заполняем лист знаков препинания.
+                var matchPunctuationMarkSort = matchPunctuationMark.OrderBy(x => x.Value).ToList(); //Сортируем коллекцию знаков препинания.
+
+                string strPunctuationMark = ""; //Знак препинания.
+                int intCountPunctuationMarkInText = 0; //Количество таких знаков препинания в тексте.
+                List<claPunctuationMark> listPunctuationMark = new List<claPunctuationMark>(matchPunctuationMarkSort.Select(x => x.Value).Distinct().ToList().Count); //Лист знаков препинания.
+
+                for (int int1 = 0; int1 <= matchPunctuationMarkSort.Count - 1; int1++)
+                {
+                    if (matchPunctuationMarkSort[int1].Value != strPunctuationMark)
+                    {
+                        if (int1 != 0)
+                        {
+                            listPunctuationMark.Add(new claPunctuationMark(strPunctuationMark, intCountPunctuationMarkInText));  //Заполняем лист знаков препинания.
+                        }
+
+                        strPunctuationMark = matchPunctuationMarkSort[int1].Value;
+                        intCountPunctuationMarkInText = 1;
+                    }
+                    else
+                    {
+                        intCountPunctuationMarkInText++;
+                    }
+                }
+                listPunctuationMark.Add(new claPunctuationMark(strPunctuationMark, intCountPunctuationMarkInText));  //Заполняем лист знаков препинания.
+
+
+
+
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Файлы
             }
-
-            var listMatchCollectionDistinct = listMatchCollection.Select(x => x).Distinct().ToList(); //Коллекция знаков препинания без повторов.
-
-            List<claPunctuationMark> listPunctuationMarkDistinct = new List<claPunctuationMark>(listMatchCollection.Count); //Лист знаков препинания без повторов.
-
-            for (int int1 = 0; int1 <= listMatchCollectionDistinct.Count - 1; int1++)
-            {
-                strPunctuationMark = listMatchCollectionDistinct[int1]; //Знак препинания.
-                intPunctuationMarkCount = listMatchCollection.RemoveAll(x => x == strPunctuationMark); //Количество таких знаков препинания в тексте.
-
-                listPunctuationMarkDistinct.Add(new claPunctuationMark(strPunctuationMark, intPunctuationMarkCount));  //Заполняем лист знаков препинания без повторов.
-            }
-
-
-
-
-
-
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Файлы
         }
+
+
 
 
 

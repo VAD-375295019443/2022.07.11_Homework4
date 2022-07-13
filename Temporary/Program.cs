@@ -213,5 +213,51 @@ namespace Strings
         */
 
 
+
+
+
+
+
+
+        /*
+        string strText = string.Join(" ", listMatchCollection); //После парсинга возвращаем все слова в strText.
+        strText = " " + f_strText + " ";
+
+        MatchCollection colWord;
+
+        for (int int1 = 0; int1 <= listMatchCollectionDistinct.Count - 1; int1++)
+        {
+            strWord = listMatchCollectionDistinct[int1]; //Слово.
+            Console.WriteLine(strWord);
+            strPattern = @" "+ strWord + @" ";
+            colWord = Regex.Matches(strText, strPattern); //Коллекция слов.
+
+            intWordCount = colWord.Count; //Количество таких слов в тексте.
+
+            listWordDistinct.Add(new claWord(strWord, intWordCount));  //Заполняем лист слов без повторов.
+        }
+        */
+
+        //Console.WriteLine("ok");
+
+
+            /*
+            for (int int1 = 0; int1 <= listMatchCollectionDistinct.Count - 1; int1++)
+            {
+                strWord = listMatchCollectionDistinct[int1]; //Слово.
+                intWordCount = listMatchCollection.RemoveAll(x => x == strWord); //Количество таких слов в тексте.
+
+                listWordDistinct.Add(new claWord(strWord, intWordCount));  //Заполняем лист слов без повторов.
+            }
+            */
+
+
+
+
+
+
+
+
+
     }
 }

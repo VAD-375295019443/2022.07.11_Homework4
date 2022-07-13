@@ -9,12 +9,12 @@ namespace Strings
     internal class claWord
     {
         public string strWord; //Слово.
-        public int intWordCount; //Количество таких слов в тексте.
+        public int intCountWordInText; //Количество таких слов в тексте.
 
-        public claWord(string strWord, int intWordCount)
+        public claWord(string strWord, int intCountWordInText)
         {
             this.strWord = strWord; //Слово.
-            this.intWordCount = intWordCount; //Количество таких слов в тексте.
+            this.intCountWordInText = intCountWordInText; //Количество таких слов в тексте.
         }
     }
 }
