@@ -23,7 +23,7 @@ namespace Strings
 
 
 
-                F_voiLetter(strText);
+                F_voiWord(strText);
 
                 
                 
@@ -96,17 +96,58 @@ namespace Strings
 
             strPattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])"; //Regex слов.
             colMatchCollection = Regex.Matches(f_strText, strPattern); //Коллекция слов.
-
+            
             List<string> listMatchCollection = new List<string>(colMatchCollection.Count); //Лист слов.
             for (int int1 = 0; int1 <= colMatchCollection.Count - 1; int1++)
             {
                 listMatchCollection.Add(colMatchCollection[int1].Value); //Заполняем лист слов.
             }
-
+            
             var listMatchCollectionDistinct = listMatchCollection.Select(x => x).Distinct().ToList(); //Коллекция слов без повторов.
 
             List<claWord> listWordDistinct = new List<claWord>(listMatchCollection.Count); //Лист слов без повторов.
 
+
+
+            var zzzz = listMatchCollection.OrderBy(x => x).ToList();
+
+
+            for (int int1 = 0; int1 <= zzzz.Count - 1; int1++)
+            {
+                
+
+
+
+
+            }
+
+
+
+
+
+
+
+                string strText = string.Join(" ", listMatchCollection); //После парсинга возвращаем все слова в strText.
+            strText = " " + f_strText + " ";
+
+            MatchCollection colWord;
+
+            for (int int1 = 0; int1 <= listMatchCollectionDistinct.Count - 1; int1++)
+            {
+                strWord = listMatchCollectionDistinct[int1]; //Слово.
+                Console.WriteLine(strWord);
+                strPattern = @" "+ strWord + @" ";
+                colWord = Regex.Matches(strText, strPattern); //Коллекция слов.
+                
+                intWordCount = colWord.Count; //Количество таких слов в тексте.
+
+                listWordDistinct.Add(new claWord(strWord, intWordCount));  //Заполняем лист слов без повторов.
+            }
+
+            Console.WriteLine("ok");
+
+
+            /*
             for (int int1 = 0; int1 <= listMatchCollectionDistinct.Count - 1; int1++)
             {
                 strWord = listMatchCollectionDistinct[int1]; //Слово.
@@ -114,7 +155,7 @@ namespace Strings
 
                 listWordDistinct.Add(new claWord(strWord, intWordCount));  //Заполняем лист слов без повторов.
             }
-
+            */
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Файлы
         }
 

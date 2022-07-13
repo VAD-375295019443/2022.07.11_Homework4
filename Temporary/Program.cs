@@ -9,6 +9,33 @@ namespace Strings
     {
         public static void Main(string[] args)
         {
+            string strText = " kl poi gh kl gh ddd ";
+
+            string d = "ddd";
+
+            string strPattern = @" "+ d + @" ";
+            MatchCollection strMatchCollection = Regex.Matches(strText, strPattern); //Создаем коллекцию букв.
+
+            for(int int1=0; int1<=strMatchCollection.Count-1; int1++)
+            {
+                Console.WriteLine(strMatchCollection[int1].Value);
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /*
             var listSentence = new List<string>() {"ghj jk","s", "ghj jk", "s","b"};
             
             //Сортируем предложения.
@@ -26,7 +53,7 @@ namespace Strings
             {
                 listSentenceCountInText.Add(listSentenceSort.Count(x => x == listSentenceNoDuplicates[int1]));
             }
-
+            */
 
 
 
