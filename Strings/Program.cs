@@ -15,14 +15,14 @@ namespace Strings
                 Console.WriteLine("");
                 Console.WriteLine("Для выхода из программы и удаления рабочих дирректорий наберите Exit.");
                 Console.WriteLine("Для продолжения нажмите Enter.");
-                string? strMenu = Console.ReadLine();
+                string? Menu = Console.ReadLine();
 
-                if (strMenu == "Exit" || strMenu == "exit")
+                if (Menu == "Exit" || Menu == "exit")
                 {
-                    string strPath = @"d:\VAD_Homework4";
-                    if (Directory.Exists(strPath) == true) //Если директория существует.
+                    string Path = @"d:\VAD_Homework4";
+                    if (Directory.Exists(Path) == true) //Если директория существует.
                     {
-                        Directory.Delete(strPath, true); //Удаляем.
+                        Directory.Delete(Path, true); //Удаляем.
                     }
 
                     Console.Clear();
@@ -31,10 +31,10 @@ namespace Strings
                 }
                 else
                 {
-                    string strText = "";
+                    string Text = "";
 
                     Console.WriteLine("Создание рабочих дирректорий и чтение данных из файла \"d:\\sample.txt\"");
-                    if (F_booReadFromFile(ref strText) == true)
+                    if (ReadFromFile(ref Text) == true)
                     {
                         Console.WriteLine("          выполнено успешно.");
                     }
@@ -44,13 +44,13 @@ namespace Strings
                         Console.WriteLine("Запрашиваемый файл \"d:\\sample.txt\" отсутствует.");
                         Console.WriteLine("");
                         Console.WriteLine("Для продолжения нажмите Enter.");
-                        strMenu = Console.ReadLine();
+                        Menu = Console.ReadLine();
                         continue;
                     }
                     
 
                     Console.WriteLine("Парсинг текста на предложения.");
-                    if (F_booSentence(ref strText) == true)
+                    if (Sentence(ref Text) == true)
                     {
                         Console.WriteLine("          выполнено успешно.");
                     }
@@ -60,13 +60,13 @@ namespace Strings
                         Console.WriteLine("Недостаточно данных для парсинга текста на предложения.");
                         Console.WriteLine("");
                         Console.WriteLine("Для продолжения нажмите Enter.");
-                        strMenu = Console.ReadLine();
+                        Menu = Console.ReadLine();
                         continue;
                     }
 
 
                     Console.WriteLine("Парсинг текста на слова.");
-                    if (F_booWord(strText) == true)
+                    if (Word(Text) == true)
                     {
                         Console.WriteLine("          выполнено успешно.");
                     }
@@ -76,13 +76,13 @@ namespace Strings
                         Console.WriteLine("Недостаточно данных для парсинга текста на слова.");
                         Console.WriteLine("");
                         Console.WriteLine("Для продолжения нажмите Enter.");
-                        strMenu = Console.ReadLine();
+                        Menu = Console.ReadLine();
                         continue;
                     }
 
 
                     Console.WriteLine("Парсинг текста на буквы.");
-                    if (F_booLetter(strText) == true)
+                    if (Letter(Text) == true)
                     {
                         Console.WriteLine("          выполнено успешно.");
                     }
@@ -92,13 +92,13 @@ namespace Strings
                         Console.WriteLine("Недостаточно данных для парсинга текста на буквы.");
                         Console.WriteLine("");
                         Console.WriteLine("Для продолжения нажмите Enter.");
-                        strMenu = Console.ReadLine();
+                        Menu = Console.ReadLine();
                         continue;
                     }
 
 
                     Console.WriteLine("Парсинг текста на знаки препинания.");
-                    if (F_booPunctuationMark(strText) == true)
+                    if (PunctuationMark(Text) == true)
                     {
                         Console.WriteLine("          выполнено успешно.");
                     }
@@ -108,7 +108,7 @@ namespace Strings
                         Console.WriteLine("Недостаточно данных для парсинга текста на знаки препинания.");
                         Console.WriteLine("");
                         Console.WriteLine("Для продолжения нажмите Enter.");
-                        strMenu = Console.ReadLine();
+                        Menu = Console.ReadLine();
                         continue;
                     }
 
@@ -121,43 +121,43 @@ namespace Strings
                     Console.WriteLine("При выходе из программы через Exit все рабочие дирректории будут удалены.");
                     Console.WriteLine("");
                     Console.WriteLine("Для продолжения нажмите Enter.");
-                    strMenu = Console.ReadLine();
+                    Menu = Console.ReadLine();
                 }
             }
         }
 
 
         //Создание рабочих дирректорий и чтение данных из файла
-        public static bool F_booReadFromFile(ref string strText)
+        public static bool ReadFromFile(ref string Text)
         {
-            string strPath = @"d:\sample.txt";
+            string Path = @"d:\sample.txt";
 
-            if (File.Exists(strPath) == true) //Если файл существует.
+            if (File.Exists(Path) == true) //Если файл существует.
             {
-                strPath = @"d:\sample.txt";
-                strText = File.ReadAllText(strPath); //Читаем данные из файла в переменную.
+                Path = @"d:\sample.txt";
+                Text = File.ReadAllText(Path); //Читаем данные из файла в переменную.
 
 
-                strPath = @"d:\VAD_Homework4\Parsing";
-                if (Directory.Exists(strPath) == true) //Если директория существует.
+                Path = @"d:\VAD_Homework4\Parsing";
+                if (Directory.Exists(Path) == true) //Если директория существует.
                 {
-                    Directory.Delete(strPath, true); //Удаляем.
+                    Directory.Delete(Path, true); //Удаляем.
                 }
-                Directory.CreateDirectory(strPath); //Создаем заново чистую.
+                Directory.CreateDirectory(Path); //Создаем заново чистую.
 
-                strPath = @"d:\VAD_Homework4\Sorted";
-                if (Directory.Exists(strPath) == true) //Если директория существует.
+                Path = @"d:\VAD_Homework4\Sorted";
+                if (Directory.Exists(Path) == true) //Если директория существует.
                 {
-                    Directory.Delete(strPath, true); //Удаляем.
+                    Directory.Delete(Path, true); //Удаляем.
                 }
-                Directory.CreateDirectory(strPath); //Создаем заново чистую.
+                Directory.CreateDirectory(Path); //Создаем заново чистую.
 
-                strPath = @"d:\VAD_Homework4\Request";
-                if (Directory.Exists(strPath) == true) //Если директория существует.
+                Path = @"d:\VAD_Homework4\Request";
+                if (Directory.Exists(Path) == true) //Если директория существует.
                 {
-                    Directory.Delete(strPath, true); //Удаляем.
+                    Directory.Delete(Path, true); //Удаляем.
                 }
-                Directory.CreateDirectory(strPath); //Создаем заново чистую.
+                Directory.CreateDirectory(Path); //Создаем заново чистую.
 
                 return (true);
             }
@@ -169,95 +169,95 @@ namespace Strings
         
         
         //Парсинг текста на предложения.
-        public static bool F_booSentence(ref string f_strText)
+        public static bool Sentence(ref string Text)
         {
-            f_strText = f_strText.Replace("\n", " "); //Удаляем все ентеры (в тексте вогон не нужных/случайных).
+            Text = Text.Replace("\n", " "); //Удаляем все ентеры (в тексте вогон не нужных/случайных).
 
-            string strPattern = @"((\.\.\.)|([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s]])((Sr.|Jr.|Mrs.|Mr.|Dr.|.exe|[0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.]])*(\.\.\.\""|\.\""|\!\""|\?\""|\.\.\.\'|\.\'|\!\'|\?\'|\.\.\.|[\.\!\?])?"; //Regex предложений.
-            MatchCollection matchSentence = Regex.Matches(f_strText, strPattern); //Коллекция предложений.
+            string Pattern = @"((\.\.\.)|([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s]])((Sr.|Jr.|Mrs.|Mr.|Dr.|.exe|[0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.]])*(\.\.\.\""|\.\""|\!\""|\?\""|\.\.\.\'|\.\'|\!\'|\?\'|\.\.\.|[\.\!\?])?"; //Regex предложений.
+            MatchCollection CollectionSentence = Regex.Matches(Text, Pattern); //Коллекция предложений.
 
-            if (matchSentence.Count > 0)
+            if (CollectionSentence.Count > 0)
             {
-                var matchSentenceSort = matchSentence.OrderBy(x => x.Value).ToList(); //Сортируем коллекцию предложений.
+                var SentenceSort = CollectionSentence.OrderBy(x => x.Value).ToList(); //Сортируем коллекцию предложений.
 
-                string strSentence = ""; //Предложение.
-                int intCountSentenceInText = 0; //Количество таких предложений в тексте.
-                int intCountWordInSentence = 0; //Количество слов в предложениии.
-                int intCountCharactersInSentence = 0; //Количество символов в предложениии.
-                List<claSentence> listSentence = new List<claSentence>(matchSentenceSort.Select(x => x.Value).Distinct().ToList().Count); //Лист предложений.
+                string Sentence = ""; //Предложение.
+                int CountSentenceInText = 0; //Количество таких предложений в тексте.
+                int CountWordInSentence = 0; //Количество слов в предложениии.
+                int CountCharactersInSentence = 0; //Количество символов в предложениии.
+                List<Sentence> listSentence = new List<Sentence>(SentenceSort.Select(x => x.Value).Distinct().ToList().Count); //Лист предложений.
 
-                for (int int1 = 0; int1 <= matchSentenceSort.Count - 1; int1++)
+                for (int int1 = 0; int1 <= SentenceSort.Count - 1; int1++)
                 {
-                    if (matchSentenceSort[int1].Value != strSentence)
+                    if (SentenceSort[int1].Value != Sentence)
                     {
                         if (int1 != 0)
                         {
-                            listSentence.Add(new claSentence(strSentence, intCountSentenceInText, intCountWordInSentence, intCountCharactersInSentence));  //Заполняем лист предложений.
+                            listSentence.Add(new Sentence(Sentence, CountSentenceInText, CountWordInSentence, CountCharactersInSentence));  //Заполняем лист предложений.
                         }
 
-                        strSentence = matchSentenceSort[int1].Value; //Предложение.
-                        intCountSentenceInText = 1; //Количество таких предложений в тексте.
+                        Sentence = SentenceSort[int1].Value; //Предложение.
+                        CountSentenceInText = 1; //Количество таких предложений в тексте.
 
-                        strPattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])?"; //Regex слов.
-                        MatchCollection matchWord = Regex.Matches(strSentence, strPattern); //Коллекция слов.
-                        intCountWordInSentence = matchWord.Count; //Количество слов в предложениии.
+                        Pattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])?"; //Regex слов.
+                        MatchCollection CollectionWord = Regex.Matches(Sentence, Pattern); //Коллекция слов.
+                        CountWordInSentence = CollectionWord.Count; //Количество слов в предложениии.
 
-                        intCountCharactersInSentence = strSentence.Length; //Количество символов в предложениии.
+                        CountCharactersInSentence = Sentence.Length; //Количество символов в предложениии.
                     }
                     else
                     {
-                        intCountSentenceInText++;
+                        CountSentenceInText++;
                     }
                 }
-                listSentence.Add(new claSentence(strSentence, intCountSentenceInText, intCountWordInSentence, intCountCharactersInSentence));  //Заполняем лист предложений.
+                listSentence.Add(new Sentence(Sentence, CountSentenceInText, CountWordInSentence, CountCharactersInSentence));  //Заполняем лист предложений.
 
 
                 //Вывод результата парсинга текста на предложения.
-                f_strText = string.Join("\n", matchSentence);
-                string strPath = $@"d:\VAD_Homework4\Parsing\Sentence.txt";
-                File.WriteAllText(strPath, f_strText);
+                Text = string.Join("\n", CollectionSentence);
+                string Path = $@"d:\VAD_Homework4\Parsing\Sentence.txt";
+                File.WriteAllText(Path, Text);
 
 
                 //Вывод сортированного результата парсинга текста на предложения.
                 List<string> listSentenceSorted = new List<string>(listSentence.Select(x => x).Distinct().ToList().Count);
                 for(int int1=0; int1<=listSentence.Count-1; int1++)
                 {
-                    listSentenceSorted.Add($"Предложений в тексте = {Convert.ToString(listSentence[int1].intCountSentenceInText)}: {listSentence[int1].strSentence}");
+                    listSentenceSorted.Add($"Предложений в тексте = {Convert.ToString(listSentence[int1].CountSentenceInText)}: {listSentence[int1].Sentence}");
                 }
-                f_strText = string.Join("\n", listSentenceSorted);
-                strPath = $@"d:\VAD_Homework4\Sorted\SentenceSorted.txt";
-                File.WriteAllText(strPath, f_strText);
+                Text = string.Join("\n", listSentenceSorted);
+                Path = $@"d:\VAD_Homework4\Sorted\SentenceSorted.txt";
+                File.WriteAllText(Path, Text);
 
 
                 //Вывод запроса на максимальное количество символов в предложении.
-                int intMaxCountCharactersInSentence = listSentence.Max(x => x.intCountCharactersInSentence);
-                var MaxCountCharactersInSentence = listSentence.Where(x => x.intCountCharactersInSentence == intMaxCountCharactersInSentence).ToList();
+                int intMaxCountCharactersInSentence = listSentence.Max(x => x.CountCharactersInSentence);
+                var MaxCountCharactersInSentence = listSentence.Where(x => x.CountCharactersInSentence == intMaxCountCharactersInSentence).ToList();
                 List<string> listMaxCountCharactersInSentence = new List<string>(MaxCountCharactersInSentence.Select(x => x).Distinct().ToList().Count);
                 for (int int1 = 0; int1 <= MaxCountCharactersInSentence.Count - 1; int1++)
                 {
-                    listMaxCountCharactersInSentence.Add($"Количество символов = {Convert.ToString(MaxCountCharactersInSentence[int1].intCountCharactersInSentence)}: {MaxCountCharactersInSentence[int1].strSentence}");
+                    listMaxCountCharactersInSentence.Add($"Количество символов = {Convert.ToString(MaxCountCharactersInSentence[int1].CountCharactersInSentence)}: {MaxCountCharactersInSentence[int1].Sentence}");
                 }
-                f_strText = string.Join("\n", listMaxCountCharactersInSentence);
-                strPath = $@"d:\VAD_Homework4\Request\Request.txt";
-                File.WriteAllText(strPath, "                ПРЕДЛОЖЕНИЯ С МАКСИМАЛЬНЫМ КОЛИЧЕСТВОМ СИМВОЛОВ\n\n");
-                File.AppendAllText(strPath, f_strText);
+                Text = string.Join("\n", listMaxCountCharactersInSentence);
+                Path = $@"d:\VAD_Homework4\Request\Request.txt";
+                File.WriteAllText(Path, "                ПРЕДЛОЖЕНИЯ С МАКСИМАЛЬНЫМ КОЛИЧЕСТВОМ СИМВОЛОВ\n\n");
+                File.AppendAllText(Path, Text);
 
 
                 //Вывод запроса на минимальное количество слов в предложении.
-                int intMinCountWordInSentence = listSentence.Min(x => x.intCountWordInSentence);
-                var MinCountWordInSentence = listSentence.Where(x => x.intCountWordInSentence == intMinCountWordInSentence).ToList();
+                int intMinCountWordInSentence = listSentence.Min(x => x.CountWordInSentence);
+                var MinCountWordInSentence = listSentence.Where(x => x.CountWordInSentence == intMinCountWordInSentence).ToList();
                 List<string> listMinCountWordInSentence = new List<string>(MinCountWordInSentence.Select(x => x).Distinct().ToList().Count);
                 for (int int1 = 0; int1 <= MinCountWordInSentence.Count - 1; int1++)
                 {
-                    listMinCountWordInSentence.Add($"Количество слов = {Convert.ToString(MinCountWordInSentence[int1].intCountWordInSentence)}: {MinCountWordInSentence[int1].strSentence}");
+                    listMinCountWordInSentence.Add($"Количество слов = {Convert.ToString(MinCountWordInSentence[int1].CountWordInSentence)}: {MinCountWordInSentence[int1].Sentence}");
                 }
-                f_strText = string.Join("\n", listMinCountWordInSentence);
-                strPath = $@"d:\VAD_Homework4\Request\Request.txt";
-                File.AppendAllText(strPath, "\n\n                ПРЕДЛОЖЕНИЯ С МИНИМАЛЬНЫМ КОЛИЧЕСТВОМ СЛОВ\n\n");
-                File.AppendAllText(strPath, f_strText);
+                Text = string.Join("\n", listMinCountWordInSentence);
+                Path = $@"d:\VAD_Homework4\Request\Request.txt";
+                File.AppendAllText(Path, "\n\n                ПРЕДЛОЖЕНИЯ С МИНИМАЛЬНЫМ КОЛИЧЕСТВОМ СЛОВ\n\n");
+                File.AppendAllText(Path, Text);
 
 
-                f_strText = string.Join(" ", matchSentence); //После парсинга возвращаем все предложения в strText (чистый текст без оставшейся абры-кадабры после парсинга).
+                Text = string.Join(" ", CollectionSentence); //После парсинга возвращаем все предложения в Text (чистый текст без оставшейся абры-кадабры после парсинга).
 
                 return (true);
             }
@@ -269,14 +269,14 @@ namespace Strings
 
 
         //Парсинг текста на слова.
-        public static bool F_booWord(string f_strText)
+        public static bool Word(string Text)
         {
-            string strPattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])?"; //Regex слов.
-            MatchCollection matchWord = Regex.Matches(f_strText, strPattern); //Коллекция слов.
+            string Pattern = @"([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\(\{\[\,]])(([0-9]{1,}.[0-9]{1,})|[\w\W-[\?\!\.\s\""\(\)\{\}\[\]\,]])*([0-9]{1,}.[0-9]{1,}|[\w\W-[\?\!\.\s\""\)\}\]\,]])?"; //Regex слов.
+            MatchCollection CollectionWord = Regex.Matches(Text, Pattern); //Коллекция слов.
 
-            if(matchWord.Count>0)
+            if(CollectionWord.Count>0)
             {
-                var matchWordSort = matchWord.OrderBy(x => x.Value).ToList(); //Сортируем коллекцию слов.
+                var matchWordSort = CollectionWord.OrderBy(x => x.Value).ToList(); //Сортируем коллекцию слов.
             
                 string strWord = ""; //Слово.
                 int intCountWordInText = 0; //Количество таких слов в тексте.
@@ -303,9 +303,9 @@ namespace Strings
 
 
                 //Вывод результата парсинга текста на слова.
-                f_strText = string.Join("\n", matchWord);
-                string strPath = $@"d:\VAD_Homework4\Parsing\Word.txt";
-                File.WriteAllText(strPath, f_strText);
+                Text = string.Join("\n", CollectionWord);
+                string Path = $@"d:\VAD_Homework4\Parsing\Word.txt";
+                File.WriteAllText(Path, Text);
 
 
                 //Вывод сортированного результата парсинга текста на слова.
@@ -314,9 +314,9 @@ namespace Strings
                 {
                     listWordSorted.Add($"Слов в тексте = {Convert.ToString(listWord[int1].intCountWordInText)}: {listWord[int1].strWord}");
                 }
-                f_strText = string.Join("\n", listWordSorted);
-                strPath = $@"d:\VAD_Homework4\Sorted\WordSorted.txt";
-                File.WriteAllText(strPath, f_strText);
+                Text = string.Join("\n", listWordSorted);
+                Path = $@"d:\VAD_Homework4\Sorted\WordSorted.txt";
+                File.WriteAllText(Path, Text);
 
                 return (true);
             }
@@ -328,10 +328,10 @@ namespace Strings
 
 
         //Парсинг текста на буквы.
-        public static bool F_booLetter(string f_strText)
+        public static bool Letter(string Text)
         {
-            string strPattern = @"[\w-[\d]]"; //Regex букв.
-            MatchCollection matchLetter = Regex.Matches(f_strText, strPattern); //Коллекция букв.
+            string Pattern = @"[\w-[\d]]"; //Regex букв.
+            MatchCollection matchLetter = Regex.Matches(Text, Pattern); //Коллекция букв.
 
             if (matchLetter.Count > 0)
             {
@@ -362,9 +362,9 @@ namespace Strings
 
 
                 //Вывод результата парсинга текста на буквы.
-                f_strText = string.Join("\n", matchLetter);
-                string strPath = $@"d:\VAD_Homework4\Parsing\Letter.txt";
-                File.WriteAllText(strPath, f_strText);
+                Text = string.Join("\n", matchLetter);
+                string Path = $@"d:\VAD_Homework4\Parsing\Letter.txt";
+                File.WriteAllText(Path, Text);
 
 
                 //Вывод сортированного результата парсинга текста на буквы.
@@ -373,9 +373,9 @@ namespace Strings
                 {
                     listLetterSorted.Add($"Букв в тексте = {Convert.ToString(listLetter[int1].intCountLetterInText)}: {listLetter[int1].strLetter}");
                 }
-                f_strText = string.Join("\n", listLetterSorted);
-                strPath = $@"d:\VAD_Homework4\Sorted\LetterSorted.txt";
-                File.WriteAllText(strPath, f_strText);
+                Text = string.Join("\n", listLetterSorted);
+                Path = $@"d:\VAD_Homework4\Sorted\LetterSorted.txt";
+                File.WriteAllText(Path, Text);
 
 
                 //Вывод запроса на максимальное количество букв в тексте.
@@ -386,10 +386,10 @@ namespace Strings
                 {
                     listMaxCountLetterInText.Add($"Количество букв = {Convert.ToString(MaxCountLetterInText[int1].intCountLetterInText)}: {MaxCountLetterInText[int1].strLetter}");
                 }
-                f_strText = string.Join("\n", listMaxCountLetterInText);
-                strPath = $@"d:\VAD_Homework4\Request\Request.txt";
-                File.AppendAllText(strPath, "\n\n                БУКВЫ С МАКСИМАЛЬНЫМ КОЛИЧЕСТВОМ ПОВТОРЕНИЙ\n\n");
-                File.AppendAllText(strPath, f_strText);
+                Text = string.Join("\n", listMaxCountLetterInText);
+                Path = $@"d:\VAD_Homework4\Request\Request.txt";
+                File.AppendAllText(Path, "\n\n                БУКВЫ С МАКСИМАЛЬНЫМ КОЛИЧЕСТВОМ ПОВТОРЕНИЙ\n\n");
+                File.AppendAllText(Path, Text);
 
                 return (true);
             }
@@ -401,10 +401,10 @@ namespace Strings
 
 
         //Парсинг текста на знаки препинания.
-        public static bool F_booPunctuationMark(string f_strText)
+        public static bool PunctuationMark(string Text)
         {
-            string strPattern = @"(\.\.\.)|[\?\!\.\""\'\,\:\;]"; //Regex знаков препинания.
-            MatchCollection matchPunctuationMark = Regex.Matches(f_strText, strPattern); //Коллекция знаков препинания.
+            string Pattern = @"(\.\.\.)|[\?\!\.\""\'\,\:\;]"; //Regex знаков препинания.
+            MatchCollection matchPunctuationMark = Regex.Matches(Text, Pattern); //Коллекция знаков препинания.
 
             if (matchPunctuationMark.Count > 0)
             {
@@ -435,9 +435,9 @@ namespace Strings
 
 
                 //Вывод результата парсинга текста на знаки препинания.
-                f_strText = string.Join("\n", matchPunctuationMark);
-                string strPath = $@"d:\VAD_Homework4\Parsing\PunctuationMark.txt";
-                File.WriteAllText(strPath, f_strText);
+                Text = string.Join("\n", matchPunctuationMark);
+                string Path = $@"d:\VAD_Homework4\Parsing\PunctuationMark.txt";
+                File.WriteAllText(Path, Text);
 
 
                 //Вывод сортированного результата парсинга текста на знаки препинания.
@@ -446,9 +446,9 @@ namespace Strings
                 {
                     listPunctuationMarkSorted.Add($"Знаков препинания в тексте = {Convert.ToString(listPunctuationMark[int1].intCountPunctuationMarkInText)}: {listPunctuationMark[int1].strPunctuationMark}");
                 }
-                f_strText = string.Join("\n", listPunctuationMarkSorted);
-                strPath = $@"d:\VAD_Homework4\Sorted\PunctuationMarkSorted.txt";
-                File.WriteAllText(strPath, f_strText);
+                Text = string.Join("\n", listPunctuationMarkSorted);
+                Path = $@"d:\VAD_Homework4\Sorted\PunctuationMarkSorted.txt";
+                File.WriteAllText(Path, Text);
 
                 return (true);
             }

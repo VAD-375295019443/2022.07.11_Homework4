@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace Strings
 {
-    internal class claSentence
+    internal class Sentence
     {
-        public string strSentence; //Предложение.
-        public int intCountSentenceInText; //Количество таких предложений в тексте.
-        public int intCountWordInSentence; //Количество слов в предложениии.
-        public int intCountCharactersInSentence; //Количество символов в предложениии.
+        public string Sentence; //Предложение.
+        public int CountSentenceInText; //Количество таких предложений в тексте.
+        public int CountWordInSentence; //Количество слов в предложениии.
+        public int CountCharactersInSentence; //Количество символов в предложениии.
 
 
 
 
-        public claSentence(string strSentence, int intCountSentenceInText, int intCountWordInSentence, int intCountCharactersInSentence)
+        public Sentence(string Sentence, int CountSentenceInText, int CountWordInSentence, int CountCharactersInSentence)
         {
-            this.strSentence = strSentence; //Предложение.
-            this.intCountSentenceInText = intCountSentenceInText; //Количество таких предложений в тексте.
-            this.intCountWordInSentence = intCountWordInSentence; //Количество слов в предложениии.
-            this.intCountCharactersInSentence = intCountCharactersInSentence; //Количество символов в предложениии.
+            this.Sentence = Sentence; //Предложение.
+            this.CountSentenceInText = CountSentenceInText; //Количество таких предложений в тексте.
+            this.CountWordInSentence = CountWordInSentence; //Количество слов в предложениии.
+            this.CountCharactersInSentence = CountCharactersInSentence; //Количество символов в предложениии.
         }
     }
 }
